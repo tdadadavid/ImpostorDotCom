@@ -26,6 +26,8 @@ describe('/api/auth/users', () => {
             await collection.deleteMany({});
         }
 
+        await Users.deleteMany({});
+
         user = {
             firstname: "King",
             lastname: "Mick",
