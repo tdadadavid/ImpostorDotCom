@@ -1,22 +1,26 @@
 const request = require('supertest');
 const app = require('../../../../app');
 const Users = require('../../model');
-const setup = require('../index');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const setup = require('../index')
 
 
-describe('api/auth/users', () => {
+describe('/api/auth/users', () => {
 
     setup();
 
     let response;
     let user;
 
+    const createUser = () => new Users(user).save();
+    const makePostRequest = () => {
+        return request(app)
+            .post('/api/auth/users')
+            .send(user);
+    }
+
     beforeEach(async () => {
-        const collections = await mongoose
-            .connection
-            .db
-            .collections();
+        const collections = await mongoose.connection.db.collections();
 
         for (const collection of collections) {
             await collection.deleteMany({});
@@ -30,21 +34,12 @@ describe('api/auth/users', () => {
             phone: "+23481823939393",
             password: "09zmqAX10#@"
         };
+
     });
 
     afterEach(async () => {
         await Users.deleteMany({});
     });
-
-    const makePostRequest = () => {
-        return request(app)
-            .post('/api/auth/users')
-            .send(user);
-    }
-
-    const createUser = () => {
-        return new Users(user).save();
-    }
 
 
     it('should return 400 error code if the firstname is not given', async () => {
@@ -95,9 +90,6 @@ describe('api/auth/users', () => {
         expect(response.body.message).toContain('in use');
     });
 
-
-
-
     it('should return 201 when user is successfully registered', async () => {
         user.email = "dummy@gmail.com";
 
@@ -106,5 +98,4 @@ describe('api/auth/users', () => {
         expect(response.status).toEqual(201);
         expect(response.body.message).toContain("successful");
     });
-
 });

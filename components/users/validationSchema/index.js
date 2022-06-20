@@ -22,7 +22,6 @@ const registrationSchema = Joi.object({
         .required()
 });
 
-
 module.exports = {
     registrationSchema
 }

@@ -26,8 +26,12 @@ app.post('/api/auth/users', [validateBody, ensureUniqueness], catchAsyncError(as
 
    const result = await user.save();
 
-   successResponse(res, 201, "Nice one, registration successful", [result.transform()]);
+   return successResponse(res, 201, "Nice one, registration successful", [result.transform()]);
 }));
+
+app.post('/api/auth/users/login', (req, res) => {
+   res.status(400).send({});
+});
 
 app.use((err, req, res, next) => {
    return errorMessage(res, 500, err.toString());

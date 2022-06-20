@@ -1,25 +1,24 @@
 const {MongoMemoryServer} = require('mongodb-memory-server');
 const mongoose = require('mongoose');
+const Users = require("../model");
 
+const setup = () => {
 
-const index = () => {
-
-    let connection;
     let server;
+    let conn;
 
     beforeAll(async () => {
         server = await MongoMemoryServer.create();
-        connection = await mongoose.connect(server.getUri(), { dbName: "users_test"});
+        conn = await mongoose.connect(server.getUri(), { dbName: "users_test"});
     });
 
     afterAll(async () => {
-        if (connection) await mongoose.connection.stop();
+        if (conn) await mongoose.connection.stop();
         if(server) await server.stop();
     });
-
 }
 
-module.exports = index
+module.exports = setup
 
 
 
