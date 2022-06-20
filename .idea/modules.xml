@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/impostorDotComMn.iml" filepath="$PROJECT_DIR$/.idea/impostorDotComMn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../simple-task-management/.idea/simple-task-management.iml" filepath="$PROJECT_DIR$/../simple-task-management/.idea/simple-task-management.iml" />
+    </modules>
+  </component>
+</project>
