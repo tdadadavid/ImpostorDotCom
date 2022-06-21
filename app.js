@@ -13,15 +13,15 @@ app.use(helmet());
 
 app.post('/api/auth/users', [validateBody, ensureUniqueness], catchAsyncError(async (req, res) => {
 
-   const inputs = req.body;
+   const { firstname, lastname, email, phone, password } = req.body;
 
-   const hashPassword = await hash(inputs.password, 11);
+   const hashPassword = await hash(password, 11);
 
    const user = new Users({
-      firstname: inputs.firstname,
-      lastname: inputs.lastname,
-      email: inputs.email,
-      phone: inputs.phone,
+      firstname,
+      lastname,
+      email,
+      phone,
       password: hashPassword
    });
 
