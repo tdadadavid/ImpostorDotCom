@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../../../app');
+const app = require('../../../../../app');
 const Users = require('../../model');
 const mongoose = require('mongoose');
 const setup = require('../index')

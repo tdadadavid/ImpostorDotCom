@@ -1,4 +1,4 @@
-const {errorMessage, catchAsyncError } = require('../../../utils/helpers')
+const {errorMessage, catchAsyncError } = require('../../../../utils')
 const { registrationSchema } = require('../validationSchema');
 const Users = require("../model");
 

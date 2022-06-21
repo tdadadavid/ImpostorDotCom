@@ -3,7 +3,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { Schema, model } = require('mongoose');
 const { sign } = require('jsonwebtoken');
-const { JWT } = require('../../../config');
+const { JWT } = require('../../../../config');
 
 
 const userSchema = new Schema({
@@ -46,15 +46,15 @@ const userSchema = new Schema({
         required: true
     },
 
-    // isEmailVerified: {
-    //     type: Boolean,
-    //     required: false
-    // },
-    //
-    // emailVerifiedAt: {
-    //     type: Date,
-    //     required: false
-    // }
+    isEmailVerified: {
+        type: Boolean,
+        required: false
+    },
+
+    emailVerifiedAt: {
+        type: Date,
+        required: false
+    }
 
 });
 
@@ -64,7 +64,9 @@ userSchema.methods.generateAuthToken =  function () {
     });
 }
 
-// userSchema.methods.verifyEmail =
+userSchema.methods.verifyEmail = function () {
+    this.isEmailVerified = true;
+}
 
 userSchema.methods.transform = function (){
     const id = uuidv4().toString();
