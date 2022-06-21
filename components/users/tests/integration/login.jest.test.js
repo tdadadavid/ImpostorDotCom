@@ -106,5 +106,10 @@ describe('/api/auth/users/login',  () => {
         expect(response.body.message).toContain("Welcome")
     });
 
+    // this test is too general, verify token function in units test //TODO
+    it('should return user details with access tokens', async () => {
+        esponse = await makePostRequest();
+        expect(response.body.data[0].token).toBeDefined();
+    });
 
 });

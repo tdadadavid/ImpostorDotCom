@@ -2,7 +2,7 @@ const _ = require('lodash');
 const helmet = require('helmet');
 const { successResponse,errorMessage, catchAsyncError } = require('./utils/helpers')
 const Users = require('./components/users/model');
-const { validateBody, ensureUniqueness, auth, validateRequest } = require('./components/users/validators')
+const { validateBody, ensureUniqueness, validateUser, validateRequest } = require('./components/users/validators')
 const { hash,compare } = require('bcrypt');
 const express = require('express');
 
@@ -30,8 +30,7 @@ app.post('/api/auth/users', [validateBody, ensureUniqueness], catchAsyncError(as
    return successResponse(res, 201, "Nice one, registration successful", [result.transform()]);
 }));
 
-// minimum implementation
-app.post('/api/auth/users/login', [validateRequest, auth], catchAsyncError(async (req, res) => {
+app.post('/api/auth/users/login', [validateRequest, validateUser], catchAsyncError(async (req, res) => {
     const { password } = req.body;
     let user = req.user;
 

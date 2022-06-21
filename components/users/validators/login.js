@@ -10,7 +10,7 @@ const validateRequest = catchAsyncError(async (req, res, next) => {
 });
 
 
-const auth = catchAsyncError(async (req, res, next)  =>{
+const validateUser = catchAsyncError(async (req, res, next)  =>{
     const { email } = req.body;
 
     let user = await Users.findOne({ email });
@@ -24,5 +24,5 @@ const auth = catchAsyncError(async (req, res, next)  =>{
 
 module.exports = {
     validateRequest,
-    auth
+    validateUser
 }
