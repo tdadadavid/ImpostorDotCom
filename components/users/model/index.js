@@ -49,7 +49,7 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.generateAuthToken =  () => {
-    return sign({_id: this._id, email: this.email}, JWT.ACCESS_TOKENS_SECRET, {
+    return sign({ _id: this._id, email: this.email }, JWT.ACCESS_TOKENS_SECRET, {
         expiresIn: JWT.expirationDate
     });
 }
@@ -63,7 +63,7 @@ userSchema.methods.transform = function (){
         firstname: this.firstname,
         lastname: this.lastname,
         email: this.email,
-        phone: this.phone
+        phone: this.phone,
     }
 }
 

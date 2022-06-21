@@ -1,8 +1,9 @@
+const _ = require('lodash');
 const helmet = require('helmet');
 const { successResponse,errorMessage, catchAsyncError } = require('./utils/helpers')
 const Users = require('./components/users/model');
-const { validateBody, ensureUniqueness } = require('./components/users/validators')
-const { hash } = require('bcrypt');
+const { validateBody, ensureUniqueness, auth, validateRequest } = require('./components/users/validators')
+const { hash,compare } = require('bcrypt');
 const express = require('express');
 
 const app = express();
@@ -30,16 +31,21 @@ app.post('/api/auth/users', [validateBody, ensureUniqueness], catchAsyncError(as
 }));
 
 // minimum implementation
-app.post('/api/auth/users/login', (req, res) => {
-    if (!req.body.email) return errorMessage(res, 400, "Email is required");
-    if (!req.body.password) return errorMessage(res, 400, "Password is required");
+app.post('/api/auth/users/login', [validateRequest, auth], catchAsyncError(async (req, res) => {
+    const { password } = req.body;
+    let user = req.user;
 
-    if (req.body.email.endsWith(".gov")) return errorMessage(res, 400, "Invalid email given");
+    const isValid = await compare(password, user.password);
+    if(!isValid) return errorMessage(res, 400, "Passwords don't match");
 
-    if(req.body.password !== "AWbcn09890@#$") return errorMessage(res, 400, "Passwords don't match");
+    const token = user.generateAuthToken();
+    user = user.transform();
 
-    res.status(200).send({});
-});
+    // add token to response payload.
+    user.token = token;
+
+    return successResponse(res, 200, "Welcome", [ user ]);
+}));
 
 app.use((err, req, res, next) => {
    return errorMessage(res, 500, err.toString());
