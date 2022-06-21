@@ -44,15 +44,27 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+
+    // isEmailVerified: {
+    //     type: Boolean,
+    //     required: false
+    // },
+    //
+    // emailVerifiedAt: {
+    //     type: Date,
+    //     required: false
+    // }
 
 });
 
-userSchema.methods.generateAuthToken =  () => {
+userSchema.methods.generateAuthToken =  function () {
     return sign({ _id: this._id, email: this.email }, JWT.ACCESS_TOKENS_SECRET, {
         expiresIn: JWT.expirationDate
     });
 }
+
+// userSchema.methods.verifyEmail =
 
 userSchema.methods.transform = function (){
     const id = uuidv4().toString();

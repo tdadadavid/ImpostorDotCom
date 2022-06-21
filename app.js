@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const helmet = require('helmet');
 const { successResponse,errorMessage, catchAsyncError } = require('./utils/helpers')
-const Users = require('./components/users/model');
-const { validateBody, ensureUniqueness, validateUser, validateRequest } = require('./components/users/validators')
+const Users = require('./components/Users/model');
+const { validateBody, ensureUniqueness, validateUser, validateRequest } = require('./components/Users/validators')
 const { hash,compare } = require('bcrypt');
 const express = require('express');
 
@@ -27,6 +27,8 @@ app.post('/api/auth/users', [validateBody, ensureUniqueness], catchAsyncError(as
 
    const result = await user.save();
 
+   // send email verification message to user email.
+
    return successResponse(res, 201, "Nice one, registration successful", [result.transform()]);
 }));
 
@@ -37,11 +39,13 @@ app.post('/api/auth/users/login', [validateRequest, validateUser], catchAsyncErr
     const isValid = await compare(password, user.password);
     if(!isValid) return errorMessage(res, 400, "Passwords don't match");
 
-    const token = user.generateAuthToken();
+    const token = await user.generateAuthToken();
     user = user.transform();
 
     // add token to response payload.
     user.token = token;
+
+    console.log(user.token);
 
     return successResponse(res, 200, "Welcome", [ user ]);
 }));

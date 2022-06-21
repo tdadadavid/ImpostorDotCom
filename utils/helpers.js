@@ -7,7 +7,6 @@ const helpers = {
             message,
             data
         });
-        return;
     },
 
     errorMessage: (res, status, message) => {
@@ -15,7 +14,6 @@ const helpers = {
             status,
             message,
         });
-        return;
     },
 
     catchAsyncError: (fn) => (req, res, next) => fn(req, res, next).catch(err => next(err)),

@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const {hash} = require("bcrypt");
 
 
-describe('/api/auth/users/login',  () => {
+describe('/api/auth/Users/login',  () => {
 
     setup();
 
