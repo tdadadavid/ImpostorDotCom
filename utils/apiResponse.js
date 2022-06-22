@@ -1,5 +1,5 @@
 
-const helpers = {
+const apiResponse = {
 
     successResponse: (res, status, message, data) => {
         res.status(status).json({
@@ -16,11 +16,8 @@ const helpers = {
         });
     },
 
-    catchAsyncError: (fn) => (req, res, next) => fn(req, res, next).catch(err => next(err)),
-
-
 }
 
 
 
-module.exports = helpers;
+module.exports = apiResponse;
