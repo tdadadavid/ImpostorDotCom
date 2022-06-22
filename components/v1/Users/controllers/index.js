@@ -1,4 +1,4 @@
-const {catchAsyncError, successResponse} = require("../../../../utils");
+const { catchAsyncError, successResponse} = require("../../../../utils");
 const UserService = require("../services/UserService");
 
 const UserController = {

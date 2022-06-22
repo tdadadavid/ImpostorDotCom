@@ -1,6 +1,6 @@
 "use strict";
 
-const { catchAsyncError } = require('./errorHandler');
+const catchAsyncError = require('./catchAsyncError');
 const { successResponse, errorMessage } = require('./apiResponse');
 const { verifyAuthToken } = require('./jwtHelpers');
 
