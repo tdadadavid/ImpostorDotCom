@@ -16,6 +16,7 @@ const config = {
     },
 
     mail: {
+        adminAddress: process.env.MAIL_ADMIN,
         user: process.env.MAIL_USERNAME,
         password: process.env.MAIL_PASSWORD,
         port: process.env.MAIL_PORT,

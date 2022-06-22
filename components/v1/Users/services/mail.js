@@ -30,4 +30,4 @@ const htmlEmailBuilder = (data) => {
     `;
 }
 
-module.exports = {transporter, htmlEmailBuilder };
+module.exports = { transporter, htmlEmailBuilder };

@@ -1,5 +1,6 @@
 "use strict";
 
+const {mail} = require('../../../../config')
 const { transporter, htmlEmailBuilder} = require('./mail');
 const {hash} = require("bcrypt");
 const Users = require("../model");
@@ -20,16 +21,15 @@ class UserService {
     }
 
     static async sendConfirmationMail(to, data){
-        // const url = `http://localhost:3000/api/auth/confirmation/${data}`;
 
         const mailOptions = {
-            from: "impostorDotCom@gmail.com",
+            from: mail.adminAddress,
             to,
             subject: "Welcome from Impostor ✅",
             html: htmlEmailBuilder(data),
         }
 
-        return await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
     }
 
 }
