@@ -1,3 +1,5 @@
+"use strict";
+
 const {errorMessage, catchAsyncError } = require('../../../../utils')
 const { loginSchema } = require('../validationSchema');
 const Users = require("../model");

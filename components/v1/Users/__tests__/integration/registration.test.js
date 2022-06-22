@@ -97,7 +97,7 @@ describe('/api/auth/Users', () => {
 
         response = await makePostRequest();
 
-        expect(response.status).toEqual(201);
         expect(response.body.message).toContain("successful");
+        expect(response.status).toEqual(201);
     });
 });

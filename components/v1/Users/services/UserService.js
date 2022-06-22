@@ -1,6 +1,8 @@
-const {hash, compare} = require("bcrypt");
+"use strict";
+
+const { transporter, htmlEmailBuilder} = require('./mail');
+const {hash} = require("bcrypt");
 const Users = require("../model");
-const {errorMessage} = require("../../../../utils");
 
 class UserService {
     static async createUser(data) {
@@ -15,6 +17,19 @@ class UserService {
             phone,
             password: hashPassword
         });
+    }
+
+    static async sendConfirmationMail(to, data){
+        // const url = `http://localhost:3000/api/auth/confirmation/${data}`;
+
+        const mailOptions = {
+            from: "impostorDotCom@gmail.com",
+            to,
+            subject: "Welcome from Impostor ✅",
+            html: htmlEmailBuilder(data),
+        }
+
+        return await transporter.sendMail(mailOptions);
     }
 
 }
