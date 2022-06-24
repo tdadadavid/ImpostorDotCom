@@ -3,6 +3,7 @@
 const {errorMessage, catchAsyncError } = require('../../../../utils')
 const { loginSchema } = require('../validationSchema');
 const Users = require("../model");
+const {next} = require("lodash/seq");
 
 const validateRequest = catchAsyncError(async (req, res, next) => {
     const { error } = await loginSchema.validate(req.body);
@@ -12,22 +13,30 @@ const validateRequest = catchAsyncError(async (req, res, next) => {
 });
 
 
-const validateUser = catchAsyncError(async (req, res, next)  =>{
-    const { email, password } = req.body;
+const authUser = catchAsyncError(async (req, res, next)  =>{
+    const { email } = req.body;
 
     let user = await Users.findOne({ email });
     if (!user) return errorMessage(res, 404, "User is not authenticated");
-
-    const isValid = await user.comparePassword(password);
-    if(!isValid) return errorMessage(res, 400, "Passwords don't match");
 
     req.user = user;
 
     next();
 });
 
+const confirmPassword = catchAsyncError(async (req, res, next) => {
+    const { password } = req.body;
+    const user = req.user;
+
+    const isValid = await user.comparePassword(password);
+    if(!isValid) return errorMessage(res, 400, "Passwords don't match");
+
+    next();
+})
+
 
 module.exports = {
     validateRequest,
-    validateUser
+    authUser,
+    confirmPassword
 }
