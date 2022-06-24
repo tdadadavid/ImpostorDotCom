@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const { Schema, model } = require('mongoose');
 const { sign } = require('jsonwebtoken');
 const { JWT } = require('../../../../config');
-const {hash} = require("bcrypt");
+const {hash, compare} = require("bcrypt");
 
 
 const userSchema = new Schema({
@@ -60,15 +60,24 @@ const userSchema = new Schema({
 });
 
 /**
- *  Hash user password
+ *  Hash user password  and set
+ *  the user password if it was modified
+ *  New user's passwords are set to true
+ *  so their password's will still be hashed
+ *
  */
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
     this.password = await hash(this.password, 12);
+    return next();
 });
 
+
+userSchema.methods.comparePassword = async function(givenPassword) {
+    return await compare(givenPassword, this.password);
+}
 
 /**
  * Generate auth token for the user
