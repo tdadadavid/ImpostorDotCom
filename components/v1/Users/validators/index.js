@@ -1,4 +1,4 @@
-const { validateRequest, validateUser } = require('./login');
+const { validateRequest, authUser, confirmPassword } = require('./login');
 const { validateBody, ensureUniqueness} = require('./signUp');
 
 
@@ -6,5 +6,6 @@ module.exports = {
     validateRequest,
     validateBody,
     ensureUniqueness,
-    validateUser
+    authUser,
+    confirmPassword
 }
