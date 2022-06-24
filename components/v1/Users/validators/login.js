@@ -3,7 +3,6 @@
 const {errorMessage, catchAsyncError } = require('../../../../utils')
 const { loginSchema } = require('../validationSchema');
 const Users = require("../model");
-const {next} = require("lodash/seq");
 
 const validateRequest = catchAsyncError(async (req, res, next) => {
     const { error } = await loginSchema.validate(req.body);

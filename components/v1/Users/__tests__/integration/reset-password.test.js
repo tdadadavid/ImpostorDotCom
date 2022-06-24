@@ -17,7 +17,7 @@ describe('Request for password reset', () => {
     let payload = { email: "dummy@gmail.com" };
     const makePostRequest = () => {
         return request(app)
-            .post('/api/auth/users/forgotPassword')
+            .post('/api/auth/users/forgot-password')
             .send(payload)
     }
     let user = {
@@ -34,11 +34,33 @@ describe('Request for password reset', () => {
        await Users.create(user);
     });
 
+    afterEach(async () => {
+        await Users.deleteOne({ email: "dummy@gmail.com" });
+    })
+
     it('should return 400 if email is not given', async () => {
         delete payload.email;
 
         response = await makePostRequest();
+
         expect(response.status).toEqual(400);
+        expect(response.body.message).toContain('email');
+    });
+
+    it('should return 404 if the user is not authenticated', async () => {
+        payload.email = "unauthenticated@gmail.com";
+
+        response = await makePostRequest();
+
+        expect(response.status).toBe(404);
+        expect(response.body.message).toContain('not authenticated');
+    });
+
+    it('should return 200 if the request is valid', async () => {
+        response = await makePostRequest();
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toContain('email');
     });
 });
 

@@ -6,7 +6,7 @@ dotenv.config();
 const config = {
     JWT: {
         ACCESS_TOKENS_SECRET: process.env.ACCESS_TOKENS_SECRET,
-        expirationDate: process.env.ACCESS_TOKENS_LIFETIME
+        tokenLifeSpan: process.env.ACCESS_TOKENS_LIFETIME
     },
 
     db: {
@@ -22,7 +22,12 @@ const config = {
         port: process.env.MAIL_PORT,
         host: process.env.MAIL_HOST,
         secure: process.env.MAIL_SECURE,
-        tlsState: process.env.MAIL_TLS
+        tlsState: process.env.MAIL_TLS,
+    },
+
+    passwordReset: {
+        token: process.env.PASSWORD_RESET_SECRET,
+        tokenLifeSpan: process.env.PASSWORD_RESET_TOKEN_LIFETIME
     },
 
     port: process.env.port

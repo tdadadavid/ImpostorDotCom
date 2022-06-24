@@ -64,7 +64,6 @@ const userSchema = new Schema({
  *  the user password if it was modified
  *  New user's passwords are set to true
  *  so their password's will still be hashed
- *
  */
 
 userSchema.pre('save', async function (next) {
@@ -93,7 +92,7 @@ userSchema.methods.comparePassword = async function(givenPassword) {
 
 userSchema.methods.generateAuthToken =  function () {
     return sign({ _id: this._id, email: this.email }, JWT.ACCESS_TOKENS_SECRET, {
-        expiresIn: JWT.expirationDate
+        expiresIn: JWT.tokenLifeSpan
     });
 }
 

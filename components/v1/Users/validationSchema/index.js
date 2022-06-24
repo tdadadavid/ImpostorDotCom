@@ -7,7 +7,7 @@ const emailSchema = Joi
         minDomainSegments: 2
     }).required();
 
-const registrationSchema = Joi.object({
+const registrationSchema = Joi.object(  {
     firstname: Joi.string().min(1).max(255).required(),
     lastname: Joi.string().min(1).max(255).required(),
     username: Joi.string().min(1).max(255),
@@ -28,9 +28,14 @@ const registrationSchema = Joi.object({
 const loginSchema = Joi.object({
     email: emailSchema,
     password: Joi.string().min(8).max(12).required()
-})
+});
+
+const passwordResetSchema = Joi.object({
+    email: emailSchema
+});
 
 module.exports = {
     registrationSchema,
-    loginSchema
+    loginSchema,
+    passwordResetSchema
 }

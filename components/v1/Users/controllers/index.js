@@ -1,9 +1,12 @@
+"use strict";
+
 const { catchAsyncError, successResponse} = require("../../../../utils");
 const UserService = require("../services/UserService");
 
 const UserController = {
 
     signUp: catchAsyncError(async (req, res) => {
+
         const user = await UserService.createUser(req.body);
 
         const token = user.generateAuthToken();
@@ -32,6 +35,11 @@ const UserController = {
         return successResponse(res, 200, "Welcome", [ user ]);
     }),
 
+    sendResetEmail: catchAsyncError(async (req, res) => {
+        res.status(200).send({
+            message: "An email has been sent to you."
+        });
+    }),
 }
 
 

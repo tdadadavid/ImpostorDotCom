@@ -8,7 +8,7 @@ const userRouter = Router();
 
 userRouter.post('/', [validateBody, ensureUniqueness], UserController.signUp);
 userRouter.post('/login', [validateRequest, authUser, confirmPassword], UserController.login);
-userRouter.post('/forgot-password', [ passwordResetValidator, authUser ]);
+userRouter.post('/forgot-password', [ passwordResetValidator, authUser ], UserController.sendResetEmail);
 
 
 module.exports = userRouter;

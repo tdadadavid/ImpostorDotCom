@@ -1,3 +1,5 @@
+"use strict";
+
 const userRouter = require('./Users/routes');
 
 const { Router } = require('express');

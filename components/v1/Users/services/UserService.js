@@ -2,7 +2,6 @@
 
 const {mail} = require('../../../../config')
 const { transporter, htmlEmailBuilder} = require('./mail');
-const {hash} = require("bcrypt");
 const Users = require("../model");
 
 class UserService {

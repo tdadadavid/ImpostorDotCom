@@ -12,10 +12,10 @@ const setup = () => {
         conn = await mongoose.connect(server.getUri(), { dbName: "users_test"});
     });
 
-    afterAll(async () => {
-        if (conn) await mongoose.connection.stop();
-        if(server) await server.stop();
-    });
+    // afterAll(async () => {
+    //     if (conn) await conn.close();
+    //     if(server) await server.stop();
+    // });
 }
 
 module.exports = setup
