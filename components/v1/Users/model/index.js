@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const { Schema, model } = require('mongoose');
 const { sign } = require('jsonwebtoken');
 const { JWT } = require('../../../../config');
+const {hash} = require("bcrypt");
 
 
 const userSchema = new Schema({
@@ -58,6 +59,15 @@ const userSchema = new Schema({
 
 });
 
+/**
+ *  Hash user password
+ */
+
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+
+    this.password = await hash(this.password, 12);
+});
 
 
 /**
