@@ -36,6 +36,12 @@ const UserController = {
     }),
 
     sendResetEmail: catchAsyncError(async (req, res) => {
+        const user = req.user;
+
+        const password_reset_token = await user.generatePasswordResetToken();
+
+        await UserService.sendResetPasswordMail(user.email, password_reset_token);
+
         res.status(200).send({
             message: "An email has been sent to you."
         });

@@ -26,7 +26,7 @@ const config = {
     },
 
     passwordReset: {
-        token: process.env.PASSWORD_RESET_SECRET,
+        TOKEN_SECRET: process.env.PASSWORD_RESET_SECRET,
         tokenLifeSpan: process.env.PASSWORD_RESET_TOKEN_LIFETIME
     },
 

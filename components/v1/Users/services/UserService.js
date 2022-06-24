@@ -32,6 +32,26 @@ class UserService {
         await transporter.sendMail(mailOptions);
     }
 
+    static async sendResetPasswordMail(to, data){
+        const mailOptions = {
+            from: mail.adminAddress,
+            to,
+            subject: "Reset password.",
+            html: `
+                <h1>Forgot your password?</h1>
+                
+                <p> 
+                    We received a request to reset your password.
+                    If you didn't make this request, simply ignore this email.
+                </p>
+                
+                <a href="http://localhost:3000/api/auth/users/resets/${ data }">Reset my password</a>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+    }
+
 }
 
 
