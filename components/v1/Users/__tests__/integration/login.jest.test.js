@@ -13,10 +13,6 @@ describe('/api/auth/Users/login',  () => {
     let response;
     let payload;
 
-    const hashUserPassword = async (password) => {
-        return await hash(password, 11);
-    }
-
     let user = {
         firstname: "King",
         lastname: "Mick",
@@ -27,7 +23,7 @@ describe('/api/auth/Users/login',  () => {
     };
 
     const makeUser = async  () =>{
-        await new Users(user).save();
+        await Users.create(user);
     }
     const makePostRequest = () => {
         return request(app)
@@ -36,7 +32,6 @@ describe('/api/auth/Users/login',  () => {
     }
 
     beforeEach(async () => {
-        user.password = await hashUserPassword("AWbn09890@#")
         payload = { email: "dummy@gmail.com", password: "AWbn09890@#" };
         await makeUser();
     });
@@ -102,13 +97,13 @@ describe('/api/auth/Users/login',  () => {
 
     it('should return 200 if the request is valid', async () => {
         response = await makePostRequest();
-        expect(response.status).toBe(200);
         expect(response.body.message).toContain("Welcome")
+        expect(response.status).toBe(200);
     });
 
     // this test is too general, verify token function in units test //TODO
     it('should return user details with access tokens', async () => {
-        esponse = await makePostRequest();
+        response = await makePostRequest();
         expect(response.body.data[0].token).toBeDefined();
     });
 
