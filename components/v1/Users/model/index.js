@@ -58,6 +58,14 @@ const userSchema = new Schema({
 
 });
 
+
+
+/**
+ * Generate auth token for the user
+ *
+ * @return token
+ */
+
 userSchema.methods.generateAuthToken =  function () {
     return sign({ _id: this._id, email: this.email }, JWT.ACCESS_TOKENS_SECRET, {
         expiresIn: JWT.expirationDate
@@ -67,6 +75,12 @@ userSchema.methods.generateAuthToken =  function () {
 userSchema.methods.verifyEmail = function () {
     this.isEmailVerified = true;
 }
+
+/**
+ * Transform the response payload to hide, edit some fields
+ *
+ * return object
+ */
 
 userSchema.methods.transform = function (){
     const id = uuidv4().toString();
@@ -80,7 +94,6 @@ userSchema.methods.transform = function (){
         phone: this.phone,
     }
 }
-
 
 const Users = model('Users', userSchema);
 
