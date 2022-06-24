@@ -6,18 +6,19 @@ const {hash} = require("bcrypt");
 const Users = require("../model");
 
 class UserService {
-    static async createUser(data) {
-        const { firstname, lastname, email, phone, password } = data;
 
-        const hashPassword = await hash(password, 11);
+    static async createUser(data) {
+
+        const { firstname, lastname, email, phone, password } = data;
 
         return await Users.create({
             firstname,
             lastname,
             email,
             phone,
-            password: hashPassword
+            password
         });
+
     }
 
     static async sendConfirmationMail(to, data){
@@ -27,7 +28,7 @@ class UserService {
             to,
             subject: "Welcome from Impostor ✅",
             html: htmlEmailBuilder(data),
-        }
+        };
 
         await transporter.sendMail(mailOptions);
     }
