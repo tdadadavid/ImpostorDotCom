@@ -74,6 +74,12 @@ userSchema.pre('save', async function (next) {
     return next();
 });
 
+/**
+ * Compare the given password with the
+ * hashed password from the database
+ *
+ * @returns boolean
+ */
 
 userSchema.methods.comparePassword = async function(givenPassword) {
     return await compare(givenPassword, this.password);
@@ -82,7 +88,7 @@ userSchema.methods.comparePassword = async function(givenPassword) {
 /**
  * Generate auth token for the user
  *
- * @return token
+ * @returns token
  */
 
 userSchema.methods.generateAuthToken =  function () {
@@ -98,7 +104,7 @@ userSchema.methods.verifyEmail = function () {
 /**
  * Transform the response payload to hide, edit some fields
  *
- * return object
+ * @returns object
  */
 
 userSchema.methods.transform = function (){
