@@ -3,68 +3,71 @@ const app = require('../../../../../app');
 const setup = require('../index');
 const Users = require('../../model');
 
-describe('Request for password reset', () => {
-    /***
-     * Expectations:
-     *
-     * return 400 if email is not given
-     * return 404 if the email doesn't exist
-     * return 200 if request is valid
-     *
-     */
-    setup();
-    let response;
-    let payload = { email: "dummy@gmail.com" };
-    const makePostRequest = () => {
-        return request(app)
-            .post('/api/auth/users/forgot-password')
-            .send(payload)
-    }
-    let user = {
-        firstname: "King",
-        lastname: "Mick",
-        username: "mickJod",
-        email: "dummy@gmail.com",
-        phone: "+23481823939393",
-        password: "AWbn09890@#"
-    };
 
-    beforeEach(async () => {
-       payload = { email: "dummy@gmail.com" };
-       await Users.create(user);
-    });
+setup();
 
-    afterEach(async () => {
-        await Users.deleteOne({ email: "dummy@gmail.com" });
-    })
+// describe('Request for password reset', () => {
+//     /***
+//      * Expectations:
+//      *
+//      * return 400 if email is not given
+//      * return 404 if the email doesn't exist
+//      * return 200 if request is valid
+//      *
+//      */
+//
+//     let response;
+//     let payload = { email: "dummy@gmail.com" };
+//     const makePostRequest = () => {
+//         return request(app)
+//             .post('/api/auth/users/forgot-password')
+//             .send(payload)
+//     }
+//     let user = {
+//         firstname: "King",
+//         lastname: "Mick",
+//         username: "mickJod",
+//         email: "dummy@gmail.com",
+//         phone: "+23481823939393",
+//         password: "AWbn09890@#"
+//     };
+//
+//     beforeEach(async () => {
+//        payload = { email: "dummy@gmail.com" };
+//        await Users.create(user);
+//     });
+//
+//     afterEach(async () => {
+//         await Users.deleteOne({ email: "dummy@gmail.com" });
+//     })
+//
+//     it('should return 400 if email is not given', async () => {
+//         delete payload.email;
+//
+//         response = await makePostRequest();
+//
+//         expect(response.status).toEqual(400);
+//         expect(response.body.message).toContain('email');
+//     });
+//
+//     it('should return 404 if the user is not authenticated', async () => {
+//         payload.email = "unauthenticated@gmail.com";
+//
+//         response = await makePostRequest();
+//
+//         expect(response.status).toBe(404);
+//         expect(response.body.message).toContain('not authenticated');
+//     });
+//
+//     it('should return 200 if the request is valid', async () => {
+//         response = await makePostRequest();
+//
+//         expect(response.status).toBe(200);
+//         expect(response.body.message).toContain('email');
+//     });
+// });
 
-    it('should return 400 if email is not given', async () => {
-        delete payload.email;
-
-        response = await makePostRequest();
-
-        expect(response.status).toEqual(400);
-        expect(response.body.message).toContain('email');
-    });
-
-    it('should return 404 if the user is not authenticated', async () => {
-        payload.email = "unauthenticated@gmail.com";
-
-        response = await makePostRequest();
-
-        expect(response.status).toBe(404);
-        expect(response.body.message).toContain('not authenticated');
-    });
-
-    it('should return 200 if the request is valid', async () => {
-        response = await makePostRequest();
-
-        expect(response.status).toBe(200);
-        expect(response.body.message).toContain('email');
-    });
-});
-
- // describe('Reset user password', () => {
+describe('Reset user password', () => {
 
     /**
      * Expectations:
@@ -77,31 +80,38 @@ describe('Request for password reset', () => {
      * return 500 if there is an error in the database process
      */
 
- //     setup();
- //     let response;
- //     let payload = { email: "dummy@gmail.com" };
- //     const makePostRequest = () => {
- //         return request(app)
- //             .post('/api/auth/users/passwords-reset')
- //             .send(payload)
- //     }
- //     let user = {
- //         firstname: "King",
- //         lastname: "Mick",
- //         username: "mickJod",
- //         email: "dummy@gmail.com",
- //         phone: "+23481823939393",
- //         password: "AWbn09890@#"
- //     };
- //
- //     beforeEach(async () => {
- //         payload = { email: "dummy@gmail.com" };
- //         await Users.create(user);
- //     });
- //
- //     afterEach(async () => {
- //         await Users.deleteOne({ email: "dummy@gmail.com" });
- //     })
- //
- //
- // });
+     let response;
+     let payload = { password: "29zmqAX10#@", confirm_password: "29zmqAX10#@" };
+     let token;
+     const makePostRequest = () => {
+         return request(app)
+             .post(`/api/auth/users/resets?access_token=Bearer ${token}`)
+             .send(payload)
+     }
+     let user = {
+         firstname: "King",
+         lastname: "Mick",
+         username: "mickJod",
+         email: "dummy@gmail.com",
+         phone: "+23481823939393",
+         password: "AWbn09890@#"
+     };
+
+     beforeEach(async () => {
+         user = await Users.create(user);
+         token = user.generatePasswordResetToken();
+     });
+
+     afterEach(async () => {
+         await Users.deleteOne({ email: "dummy@gmail.com" });
+     });
+
+    it('should return 422 error if no token is provided', async () => {
+        token = "";
+
+        response = await makePostRequest();
+        expect(response.status).toBe(401)
+    });
+
+
+});
