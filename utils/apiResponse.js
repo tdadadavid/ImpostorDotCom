@@ -9,6 +9,13 @@ const apiResponse = {
         });
     },
 
+    successMessage: (res, status, message) => {
+      res.status(status).json({
+          status,
+          message
+      });
+    },
+
     errorMessage: (res, status, message) => {
         res.status(status).json({
             status,

@@ -32,6 +32,7 @@ class UserService {
         await transporter.sendMail(mailOptions);
     }
 
+    // refactor the html context
     static async sendResetPasswordMail(to, data){
         const mailOptions = {
             from: mail.adminAddress,
@@ -41,11 +42,14 @@ class UserService {
                 <h1>Forgot your password?</h1>
                 
                 <p> 
-                    We received a request to reset your password.
+                    We received a request to reset your password. click 
+                    <a href="http://localhost:3000/api/auth/users/resets/?Bearer ${ data }">Reset my password</a>
+                    if you requested for a reset. Password reset link with expire in five minutes (5),
+                    <a href="http://localhost:3000/api/auth/users/forgot-password">Request another</a>
                     If you didn't make this request, simply ignore this email.
                 </p>
                 
-                <a href="http://localhost:3000/api/auth/users/resets/${ data }">Reset my password</a>
+                
             `
         };
 

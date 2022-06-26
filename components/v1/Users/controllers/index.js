@@ -1,6 +1,6 @@
 "use strict";
 
-const { catchAsyncError, successResponse} = require("../../../../utils");
+const { catchAsyncError, successResponse, successMessage} = require("../../../../utils");
 const UserService = require("../services/UserService");
 
 const UserController = {
@@ -11,7 +11,6 @@ const UserController = {
 
         const token = user.generateAuthToken();
 
-        // send email verification message to user email.
         await UserService.sendConfirmationMail(user.email, token);
 
         return successResponse(
@@ -35,16 +34,14 @@ const UserController = {
         return successResponse(res, 200, "Welcome", [ user ]);
     }),
 
-    sendResetEmail: catchAsyncError(async (req, res) => {
+    sendForgotPasswordEmail: catchAsyncError(async (req, res) => {
         const user = req.user;
 
         const password_reset_token = await user.generatePasswordResetToken();
 
         await UserService.sendResetPasswordMail(user.email, password_reset_token);
 
-        res.status(200).send({
-            message: "An email has been sent to you."
-        });
+        successMessage(res, 200, "A reset-password email has been sent");
     }),
 }
 

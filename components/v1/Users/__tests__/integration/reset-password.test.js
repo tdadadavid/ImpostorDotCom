@@ -64,7 +64,8 @@ describe('Request for password reset', () => {
     });
 });
 
-// describe('Reset user password', () => {
+ // describe('Reset user password', () => {
+
     /**
      * Expectations:
      *
@@ -75,4 +76,32 @@ describe('Request for password reset', () => {
      * return 200 if the password is reset
      * return 500 if there is an error in the database process
      */
-// });
+
+ //     setup();
+ //     let response;
+ //     let payload = { email: "dummy@gmail.com" };
+ //     const makePostRequest = () => {
+ //         return request(app)
+ //             .post('/api/auth/users/passwords-reset')
+ //             .send(payload)
+ //     }
+ //     let user = {
+ //         firstname: "King",
+ //         lastname: "Mick",
+ //         username: "mickJod",
+ //         email: "dummy@gmail.com",
+ //         phone: "+23481823939393",
+ //         password: "AWbn09890@#"
+ //     };
+ //
+ //     beforeEach(async () => {
+ //         payload = { email: "dummy@gmail.com" };
+ //         await Users.create(user);
+ //     });
+ //
+ //     afterEach(async () => {
+ //         await Users.deleteOne({ email: "dummy@gmail.com" });
+ //     })
+ //
+ //
+ // });
