@@ -12,9 +12,10 @@ app.use(helmet());
 app.use(v1Router);
 
 
-app.use('*', (req, res, next) => {
-   next( new Error(`Route not found ${req.url}`));
-});
+// <!-- work on error handling -->
+// app.use('*', (req, res, next) => {
+//    next( new Error(`Route not found ${req.url}`));
+// });
 
 app.use(errorHandler);
 

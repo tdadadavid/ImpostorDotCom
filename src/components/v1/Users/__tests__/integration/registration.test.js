@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const setup = require('../index')
 
 
-describe('/api/auth/Users', () => {
+describe('User registration', () => {
 
     setup();
 
