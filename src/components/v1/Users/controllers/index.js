@@ -9,9 +9,7 @@ const UserController = {
 
         const user = await UserService.createUser(req.body);
 
-        const token = user.generateAuthToken();
-
-        await UserService.sendConfirmationMail(user.email, token);
+        await UserService.sendConfirmationMail(user.email);
 
         return successResponse(
              res,
