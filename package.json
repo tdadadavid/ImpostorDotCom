@@ -38,7 +38,7 @@
   "jest": {
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
-      "./components/v1/Users/__tests__/index.js"
+      "./src/components/v1/Users/__tests__/index.js"
     ]
   }
 }
