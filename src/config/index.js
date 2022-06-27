@@ -25,12 +25,14 @@ const config = {
         tlsState: process.env.MAIL_TLS,
     },
 
+    saltRounds: parseInt(process.env.SALT_ROUNDS),
+
     passwordReset: {
         TOKEN_SECRET: process.env.PASSWORD_RESET_SECRET,
         tokenLifeSpan: process.env.PASSWORD_RESET_TOKEN_LIFETIME
     },
 
-    port: process.env.port
+    port: process.env.port,
 }
 
 module.exports = config;

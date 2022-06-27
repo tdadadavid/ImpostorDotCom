@@ -2,7 +2,8 @@
 
 const { validateRequest, authUser, confirmPassword } = require('./login');
 const { validateBody, ensureUniqueness} = require('./signUp');
-const passwordResetValidator = require('../validators/password-reset');
+const forgotPasswordValidator = require('./forgot-password');
+const resetPasswordValidator = require('./reset-password')
 
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
     ensureUniqueness,
     authUser,
     confirmPassword,
-    passwordResetValidator
+    forgotPasswordValidator,
+    resetPasswordValidator,
 }

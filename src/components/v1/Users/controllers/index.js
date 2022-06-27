@@ -43,6 +43,16 @@ const UserController = {
 
         successMessage(res, 200, "A reset-password email has been sent");
     }),
+
+    resetPassword: catchAsyncError(async (req, res) => {
+        const user = req.user;
+
+        user.password = req.body.password;
+
+        user.save();
+
+        successMessage(res, 200, "Password reset successfully");
+    }),
 }
 
 
