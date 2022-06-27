@@ -17,15 +17,18 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const htmlEmailBuilder = (data) => {
+const htmlEmailBuilder = () => {
     return `
             <h1>Hey Dear</h1>
             <p>
-                Thanks for signing up with us. We'll like you to confirm your email within 3 days.
-                If you've passed the allocated duration (3 days) you can request for a email verification 
-                using.
+                Welcome to impostorDotCom, before we get started please click the link below <br>
+                <a href="http://localhost:3000/api/auth/confirmation" methods="POST">Confirm mail</a>
             </p>
-            <a href="http://localhost:3000/api/auth/confirmation/${ data }" methods="POST">Confirm mail</a>
+            
+            <br>
+                By confirming this we are going to be sending important and helpful mails to give you the best
+                experience with us. Thanks
+            <br>
     `;
 }
 
