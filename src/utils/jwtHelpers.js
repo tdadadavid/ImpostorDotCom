@@ -1,4 +1,5 @@
-const {JWT} = require('../config')
+"use strict";
+
 const { verify } = require('jsonwebtoken');
 
 const tokenFunctions = {
