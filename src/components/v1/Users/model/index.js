@@ -3,7 +3,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { Schema, model } = require('mongoose');
 const { sign } = require('jsonwebtoken');
-const { JWT, passwordReset } = require('../../../../config');
+const { JWT, passwordReset, saltRounds } = require('../../../../config');
 const {hash, compare} = require("bcrypt");
 
 
@@ -71,7 +71,7 @@ const userSchema = new Schema({
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
-    this.password = await hash(this.password, 12);
+    this.password = await hash(this.password, saltRounds);
     return next();
 });
 
