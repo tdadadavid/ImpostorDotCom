@@ -1,7 +1,7 @@
 "use strict";
 
-const errorHandler = require('./middlewares/errorHandler')
-const v1Router = require('./components/v1');
+const errorHandler = require('./src/middlewares/errorHandler')
+const v1Router = require('./src/components/v1');
 const helmet = require('helmet');
 
 const express = require('express');
