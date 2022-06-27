@@ -102,6 +102,10 @@ describe('Reset user password', () => {
          token = user.generatePasswordResetToken();
      }
 
+     beforeEach(() => {
+         payload = { password: "29zmqAX10#@", confirm_password: "29zmqAX10#@" };
+     });
+
      afterEach(async () => {
          await Users.deleteOne({ email: "dummy@gmail.com" });
      })
@@ -164,5 +168,12 @@ describe('Reset user password', () => {
     });
 
 
+    it('should return 200 if password is saved', async () => {
+        await makeUser();
+
+        response = await makePostRequest();
+        expect(response.body.message).toContain("reset");
+        expect(response.status).toEqual(200);
+    });
 
 });
