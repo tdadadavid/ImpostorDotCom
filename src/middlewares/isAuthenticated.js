@@ -13,9 +13,9 @@ const isAuthenticated = async (req, res, next) => {
 
         const userID = await verifyAuthToken(accessToken, passwordReset.TOKEN_SECRET);
 
-        const authUser = await Users.findById(userID);
+        const user = await Users.findById(userID);
 
-        if (!authUser) return errorMessage(res, 422, "User is not authenticated");
+        if (!user) return errorMessage(res, 422, "User is not authenticated");
 
         next();
     }catch (err){
