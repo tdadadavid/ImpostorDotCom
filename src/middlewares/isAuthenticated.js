@@ -17,6 +17,7 @@ const isAuthenticated = async (req, res, next) => {
 
         if (!user) return errorMessage(res, 422, "User is not authenticated");
 
+        req.user = user;
         next();
     }catch (err){
         console.log(err);
