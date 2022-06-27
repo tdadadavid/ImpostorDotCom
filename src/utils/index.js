@@ -2,7 +2,7 @@
 
 const catchAsyncError = require('./catchAsyncError');
 const { successResponse, errorMessage, successMessage } = require('./apiResponse');
-const { verifyAuthToken } = require('./jwtHelpers');
+const { verifyAuthToken, getAccessToken } = require('./jwtHelpers');
 
 
 module.exports = {
@@ -10,5 +10,6 @@ module.exports = {
     successResponse,
     errorMessage,
     verifyAuthToken,
-    successMessage
+    successMessage,
+    getAccessToken
 }
