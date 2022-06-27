@@ -9,7 +9,9 @@ const UserController = {
 
         const user = await UserService.createUser(req.body);
 
-        await UserService.sendConfirmationMail(user.email);
+        const token = user.generateAuthToken();
+
+        await UserService.sendConfirmationMail(user.email, token);
 
         return successResponse(
              res,
@@ -17,6 +19,14 @@ const UserController = {
             "registration successful, An email has been sent to you",
             [ user.transform() ]
         );
+    }),
+
+    confirmUser: catchAsyncError(async (req, res) => {
+       const user = req.user;
+
+       user.verifyEmail();
+
+       successResponse(res, 200, "Email confirmed, Thanks", [ user.transform() ])
     }),
 
     login: catchAsyncError(async (req, res) => {

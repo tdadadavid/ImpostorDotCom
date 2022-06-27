@@ -65,11 +65,12 @@ const userSchema = new Schema({
  *  New user's passwords are set to true
  *  so their password's will still be hashed
  *
- *  @returns next();
+ *  @returns Function();
  */
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
+
 
     this.password = await hash(this.password, saltRounds);
     return next();
@@ -110,14 +111,23 @@ userSchema.methods.generatePasswordResetToken = function (){
     });
 }
 
+/**
+ * Set the user verified field to true,
+ * and the time the user is verified
+ *
+ * @returns null
+ */
+
 userSchema.methods.verifyEmail = function () {
     this.isEmailVerified = true;
+    this.emailVerifiedAt = new Date();
+    this.save();
 }
 
 /**
  * Transform the response payload to hide, edit some fields
  *
- * @returns object
+ * @returns User object without sensitive data
  */
 
 userSchema.methods.transform = function (){
@@ -130,6 +140,8 @@ userSchema.methods.transform = function (){
         lastname: this.lastname,
         email: this.email,
         phone: this.phone,
+        isVerified: this.isEmailVerified || "please verify your email",
+        verifiedAt: this.emailVerifiedAt || "you're not a verified user",
     }
 }
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const { validateRequest, authUser, confirmPassword } = require('./login');
-const { validateBody, ensureUniqueness} = require('./signUp');
+const { validateBody, ensureUniqueness, isValidEmail} = require('./signUp');
 const forgotPasswordValidator = require('./forgot-password');
 const resetPasswordValidator = require('./reset-password')
 
@@ -14,4 +14,5 @@ module.exports = {
     confirmPassword,
     forgotPasswordValidator,
     resetPasswordValidator,
+    isValidEmail
 }

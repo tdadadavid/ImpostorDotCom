@@ -20,13 +20,13 @@ class UserService {
 
     }
 
-    static async sendConfirmationMail(to){
+    static async sendConfirmationMail(to, data){
 
         const mailOptions = {
             from: mail.adminAddress,
             to,
             subject: "Welcome from Impostor ✅",
-            html: htmlEmailBuilder(),
+            html: htmlEmailBuilder(data),
         };
 
         await transporter.sendMail(mailOptions);
@@ -47,9 +47,7 @@ class UserService {
                     if you requested for a reset. Password reset link with expire in five minutes (5),
                     <a href="http://localhost:3000/api/auth/users/forgot-password">Request another</a>
                     If you didn't make this request, simply ignore this email.
-                </p>
-                
-                
+                </p> 
             `
         };
 
