@@ -20,13 +20,13 @@ class UserService {
 
     }
 
-    static async sendConfirmationMail(to, data){
+    static async sendConfirmationMail(to){
 
         const mailOptions = {
             from: mail.adminAddress,
             to,
             subject: "Welcome from Impostor ✅",
-            html: htmlEmailBuilder(data),
+            html: htmlEmailBuilder(),
         };
 
         await transporter.sendMail(mailOptions);
