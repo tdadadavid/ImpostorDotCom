@@ -29,7 +29,7 @@ describe('Confirmation mail', function () {
         const data = user.generateAuthToken();
 
         const response = await request(app)
-            .post(`/api/auth/users/mail-confirmations/${data}`);
+            .post(`/v1/api/auth/users/mail-confirmations/${data}`);
 
         expect(response.status).toBe(200);
         expect(response.body.message).toContain("confirmed");

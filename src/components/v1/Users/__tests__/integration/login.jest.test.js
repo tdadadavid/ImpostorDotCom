@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const {hash} = require("bcrypt");
 
 
-describe('/api/auth/Users/login',  () => {
+describe('Login module',  () => {
 
     setup();
 
@@ -27,7 +27,7 @@ describe('/api/auth/Users/login',  () => {
     }
     const makePostRequest = () => {
         return request(app)
-            .post('/api/auth/users/login')
+            .post('/v1/api/auth/users/login')
             .send(payload);
     }
 

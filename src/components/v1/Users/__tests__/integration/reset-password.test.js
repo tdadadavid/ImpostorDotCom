@@ -20,7 +20,7 @@ describe('Request for password reset', () => {
     let payload = { email: "dummy@gmail.com" };
     const makePostRequest = () => {
         return request(app)
-            .post('/api/auth/users/forgot-password')
+            .post('/v1/api/auth/users/forgot-password')
             .send(payload)
     }
     let user = {
@@ -86,7 +86,7 @@ describe('Reset user password', () => {
 
      const makePostRequest = () => {
          return request(app)
-             .post(`/api/auth/users/resets?access_token=Bearer ${token}`)
+             .post(`/v1/api/auth/users/resets?access_token=Bearer ${token}`)
              .send(payload)
      }
      const makeUser = async () => {

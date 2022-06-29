@@ -15,7 +15,7 @@ describe('User registration', () => {
     const createUser = () => new Users(user).save();
     const makePostRequest = () => {
         return request(app)
-            .post('/api/auth/users')
+            .post('/v1/api/auth/users')
             .send(user);
     }
 
