@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
-app.use(v1Router);
+app.use('/v1/api', v1Router);
 
 
 // <!-- work on error handling -->
