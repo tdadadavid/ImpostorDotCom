@@ -31,8 +31,12 @@ const progressSchema = new Schema({
        type: String,
        required: true,
        default: "Private"
-   }
+   },
 
+   user: {
+       type: Schema.Types.ObjectId,
+       required: true
+   }
 });
 
 const Progress = model('Progress', progressSchema);
