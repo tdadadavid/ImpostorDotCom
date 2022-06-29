@@ -5,7 +5,7 @@ const { passwordReset } = require('../config')
 const { getAccessToken, verifyAuthToken } = require('../utils')
 const {errorMessage} = require("../utils");
 
-const isAuthenticated = async (req, res, next) => {
+const isAuthorized = async (req, res, next) => {
     try{
         const accessToken = await getAccessToken(req);
 
@@ -15,14 +15,14 @@ const isAuthenticated = async (req, res, next) => {
 
         const user = await Users.findById(userID);
 
-        if (!user) return errorMessage(res, 422, "User is not authenticated");
+        if (!user) return errorMessage(res, 403, "Unauthorized Action");
 
         req.user = user;
         next();
     }catch (err){
-        console.log(err);
-        errorMessage(res, 403,"Invalid token provided");
+        console.log(err); // replace with winston logger
+        errorMessage(res, 422,"Invalid token provided");
     }
 }
 
-module.exports = isAuthenticated;
+module.exports = isAuthorized;
